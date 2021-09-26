@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food/pages/login/login_page.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_food/pages/home/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,12 @@ class MyApp extends StatelessWidget {
 
         ),
       )),
-      home: LoginPage(),
+      //home: LoginPage(),
+      routes: {
+        '/login': (context) => const LoginPage(),
+        HomePage.routeName: (context) => const HomePage(),
+      },
+      initialRoute: '/login',
     );
   }
 }
