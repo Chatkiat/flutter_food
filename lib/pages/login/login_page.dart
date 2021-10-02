@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     for (var j = 0; j < dot; j++) {
       iconList.add(Icon(
         Icons.circle_rounded,
-        color: Colors.yellow,
+        color: Colors.white,
         size: 25.0,
       ));
     }
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/food.jpg"),
+            image: AssetImage("assets/images/black.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -187,14 +187,14 @@ class LoginButton extends StatelessWidget {
             ? null
             : BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(width: 3.0, color: Colors.brown),
-          boxShadow: [
+          border: Border.all(width: 3.0, color: Colors.white),
+         /* boxShadow: [
             BoxShadow(
                 color: Colors.yellow,
                 blurRadius: 10,
                 offset: Offset(5, 5),
                 spreadRadius: 2)
-          ],
+          ],*/
         ),
         child: Center(
           child: number >= 0
@@ -206,7 +206,7 @@ class LoginButton extends StatelessWidget {
               ? Icon(
             Icons.backspace_outlined,
             size: 28.0,
-            color: Colors.black,
+            color: Colors.white,
           )
               : SizedBox.shrink()),
         ),
