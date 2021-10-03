@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food/pages/home/food_pages/food_menu.dart';
+import 'package:flutter_food/pages/home/food_pages/food_list_page.dart';
 import 'package:flutter_food/pages/home/food_pages/order.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +22,7 @@ class _FoodPageState extends State<FoodPage> {
       bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 15,
           selectedLabelStyle:GoogleFonts.fredokaOne(fontWeight: FontWeight.bold),
-          backgroundColor: Colors.white10,
+          backgroundColor: Colors.grey.shade800,
         items: [
           BottomNavigationBarItem(
 
@@ -35,7 +35,9 @@ class _FoodPageState extends State<FoodPage> {
 
           ),
         ],
-        currentIndex: _selectedBottomNavIndex,fixedColor: Colors.purple,
+        currentIndex: _selectedBottomNavIndex,fixedColor: Colors.yellowAccent.shade700,
+        unselectedItemColor: Colors.white,
+        unselectedLabelStyle: GoogleFonts.fredokaOne(),
         onTap: (index){
           setState(() {
             _selectedBottomNavIndex = index;

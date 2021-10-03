@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_food/pages/home/profile_page/profile.dart';
 import 'package:flutter_food/pages/home/food_pages/food.dart';
-
+import 'package:flutter_food/pages/home/food_pages/food_list_page.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
@@ -13,13 +13,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var _subPageIndex =0;
-  var _selectedButtonNavIndex = 0;
+  var _subPageIndex = 0;
+  var _selectedDrawerItemIndex = 0;
+  final _pageDataList = [
+    {
+      'icon': Icons.fastfood,
+      'title': 'Food',
+      'page': FoodPage(),
+    },
+    {
+      'icon': Icons.person,
+      'title': 'Profile',
+      'page': ProfilePage(),
+    },
+    {
+      'icon': Icons.food_bank_sharp,
+      'title': 'Foodlist',
+      'page': FoodListPage(),
+    },
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.grey.shade800,
         title: Text(_subPageIndex == 0 ? 'FLUTTER FOOD' : 'Profile',
             style: GoogleFonts.fredokaOne(color: Colors.white)),
       ),
@@ -27,104 +46,66 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            Column(
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.black87,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(40.0),
+                      child: Container(
+                        width: 80.0,
+                        height: 80.0,
+                        child: Image.asset('assets/images/cat2.jpg'),
+                      )),
+                  SizedBox(
+                    height: 8.0,
                   ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(40.0),
-                              child: Container(
-                                width: 80.0,
-                                height: 80.0,
-                                child: Image.asset('assets/images/cat2.jpg'),
-                              )),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Text(
-                            'Chatkiart Sriphuttha',
-                            style: GoogleFonts.fredokaOne(fontSize: 22.0, color: Colors.white),
-                          ),
-                          Text(
-                            'mrchatkiat409@gmail.com',
-                            style: TextStyle(fontSize: 15.0, color: Colors.white70),
-                          ),
-                        ],
-                      ),
+                  Text(
+                    'Chatkiart Sriphuttha',
+                    style: GoogleFonts.fredokaOne(
+                        fontSize: 22.0, color: Colors.white),
+                  ),
+                  Text(
+                    'mrchatkiat409@gmail.com',
+                    style: TextStyle(fontSize: 15.0, color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+            for (var item in _pageDataList)
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      item['icon'] as IconData,
+                      color: item == _pageDataList[_selectedDrawerItemIndex]
+                          ? Colors.lightGreenAccent
+                          : null,
                     ),
-
+                    SizedBox(width: 8.0),
+                    Text(item['title'] as String,style: GoogleFonts.fredokaOne(color: item == _pageDataList[_selectedDrawerItemIndex]
+                        ? Colors.deepPurple
+                    :null),),
+                  ],
                 ),
-              ],
-            ),
-            ListTile(
-              title: _buildDrawerItem(Icon(Icons.fastfood), 'Food'),
-              onTap: () => _showSubPage(0),
-            ),
-            ListTile(
-              title: _buildDrawerItem(Icon(Icons.person), 'Profile'),
-              onTap: () => _showSubPage(1),
-            ),
 
+           onTap: () {
+            setState(() {
+           _selectedDrawerItemIndex =
+           _pageDataList.indexWhere((element) => item == element);
+             });
+              Navigator.of(context).pop();
+             },
+           selected: item == _pageDataList[_selectedDrawerItemIndex],
+             ),
           ],
         ),
       ),
-
-
-      body: Container(
-          child: _buildSubPage(),color: Colors.black26,
-      ),
+      body: _pageDataList[_selectedDrawerItemIndex]['page'] as Widget,
     );
-
-  }
-  _showSubPage(int index) {
-    setState(() {
-      _subPageIndex = index;
-    });
-    Navigator.of(context).pop();
   }
 
-  Widget _buildSubPage() {
-    switch (_subPageIndex) {
-      case 0:
-        return FoodPage();
-      case 1:
-        return Profile();
-      default:
-        return SizedBox.shrink();
-    }
-  }
-
-  /*Widget _buildSubPage() {
-    switch (_subPageIndex) {
-      case 0: // home page
-        return Center(
-          child: Text('THIS IS A HOME PAGE',
-              style: Theme.of(context).textTheme.headline1),
-        );
-      case 1:
-        return Center(
-          child: Text('PAGE 1',style: Theme.of(context).textTheme.headline1),
-
-        );
-      case 2:
-        return Center(
-          child: Text('PAGE 2',style: Theme.of(context).textTheme.headline1),
-        );
-      default:
-        return SizedBox.shrink();
-    }
-  }*/
-  Row _buildDrawerItem(Widget icon, String title) {
-    return Row(children: [
-      icon,
-      SizedBox(width: 8.0),
-      Text(title,style: GoogleFonts.fredokaOne(),),
-    ]);
-  }
 }
